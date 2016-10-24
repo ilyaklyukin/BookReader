@@ -5,8 +5,6 @@ import com.j256.ormlite.field.DatabaseField;
 
 public class Book {
 
-    private static String DEFAULT_DESCRIPTION = "*no description*";
-
     @DatabaseField(generatedId = true)
     private long id;
 
@@ -82,11 +80,11 @@ public class Book {
         this.genre = genre;
     }
 
-    public String getCaption() {
+    public String getCaption(String defaultDescription) {
         if (author == null) {
-            return description == null ? DEFAULT_DESCRIPTION : description;
+            return description == null ? defaultDescription : description;
         } else if (description == null) {
-            return author + ". " + DEFAULT_DESCRIPTION;
+            return author + ". " + defaultDescription;
         }
 
         return author.getName() + ". " + description;

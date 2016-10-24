@@ -72,7 +72,9 @@ public class BookContentFragment extends Fragment {
         bookContent.setText(book.getText());
 
         Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
-        toolbar.setTitle(book.getCaption());
+
+        String defaultDescription = getActivity().getResources().getString(R.string.no_description);
+        toolbar.setTitle(book.getCaption(defaultDescription));
 
         return view;
     }
