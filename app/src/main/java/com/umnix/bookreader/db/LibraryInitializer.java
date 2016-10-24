@@ -49,26 +49,32 @@ public class LibraryInitializer {
     private void fillAuthors() throws SQLException {
         authorDao.deleteAll();
 
-        Author author = new Author("R.Bradbury");
+        Author author = new Author("Рэй Бредбери");
         authorDao.save(author);
 
-        author = new Author("I.Asimov");
+        author = new Author("Айзек Азимов");
         authorDao.save(author);
 
-        author = new Author("A.Barto");
+        author = new Author("Жюстин");
+        authorDao.save(author);
+
+        author = new Author("Агния Барто");
         authorDao.save(author);
     }
 
     private void fillGenres() throws SQLException {
         genreDao.deleteAll();
 
-        Genre genre = new Genre("novel");
+        Genre genre = new Genre("фантастика");
         genreDao.save(genre);
 
-        genre = new Genre("poems");
+        genre = new Genre("стихи");
         genreDao.save(genre);
 
-        genre = new Genre("fairy tale");
+        genre = new Genre("биография");
+        genreDao.save(genre);
+
+        genre = new Genre("сказка");
         genreDao.save(genre);
     }
 
@@ -76,24 +82,24 @@ public class LibraryInitializer {
         bookDao.deleteAll();
 
         Book book = new Book()
-                .description("Основатели")
+                .description("Основатели (eng.)")
                 .text(getAssetContent("osnovateli.txt"))
-                .author(authorDao.getByName("I.Asimov"))
-                .genre(genreDao.getByName("novel"));
+                .author(authorDao.getByName("Айзек Азимов"))
+                .genre(genreDao.getByName("фантастика"));
         bookDao.save(book);
 
         book = new Book()
-                .description("Космический рейнджер")
-                .text(getAssetContent("cosmo_ranger.txt"))
-                .author(authorDao.getByName("I.Asimov"))
-                .genre(genreDao.getByName("novel"));
+                .description("Этим утром я решила перестать есть")
+                .text(getAssetContent("perestala_est.txt"))
+                .author(authorDao.getByName("Жюстин"))
+                .genre(genreDao.getByName("биография"));
         bookDao.save(book);
 
         book = new Book()
-                .description("451 градус по Фаренгейту")
-                .text(getAssetContent("fahrenheit.txt"))
-                .author(authorDao.getByName("R.Bradbury"))
-                .genre(genreDao.getByName("novel"));
+                .description("Жилец из верхней квартиры")
+                .text(getAssetContent("kvartira.txt"))
+                .author(authorDao.getByName("Рэй Бредбери"))
+                .genre(genreDao.getByName("фантастика"));
         bookDao.save(book);
     }
 
@@ -108,7 +114,6 @@ public class LibraryInitializer {
             String line = reader.readLine();
             while (line != null) {
                 sb.append(line);
-                sb.append("\n");
                 line = reader.readLine();
             }
 

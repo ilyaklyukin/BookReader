@@ -3,11 +3,13 @@ package com.umnix.bookreader.ui.fragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
-import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 
 import com.umnix.bookreader.BookReaderApplication;
 import com.umnix.bookreader.R;
@@ -31,7 +33,10 @@ public class BookContentFragment extends Fragment {
     protected DBContentProvider dbContentProvider;
 
     @BindView(R.id.book_content)
-    protected TextView bookContent;
+    protected WebView bookContent;
+
+    @BindView(R.id.progress_bar)
+    protected ProgressBar progressBar;
 
     private Unbinder unbinder;
 
@@ -68,16 +73,47 @@ public class BookContentFragment extends Fragment {
         BookReaderApplication.getComponent().inject(this);
         unbinder = ButterKnife.bind(this, view);
 
-        bookContent.setMovementMethod(new ScrollingMovementMethod());
-        bookContent.setText(book.getText());
-
         Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
 
         String defaultDescription = getActivity().getResources().getString(R.string.no_description);
         toolbar.setTitle(book.getCaption(defaultDescription));
 
+        initReader();
+
+        loadBook(book);
+
         return view;
     }
+
+    private void initReader() {
+        bookContent.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                if (progressBar == null || bookContent == null) {
+                    return;
+                }
+                progressBar.setVisibility(View.GONE);
+                bookContent.setVisibility(View.VISIBLE);
+            }
+        });
+        WebSettings settings = bookContent.getSettings();
+        settings.setUseWideViewPort(false);
+        settings.setTextZoom(settings.getTextZoom() * 2);
+        settings.setBuiltInZoomControls(true);
+        settings.setDisplayZoomControls(false);
+        settings.setLoadWithOverviewMode(true);
+
+        bookContent.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
+    }
+
+    private void loadBook(Book book) {
+        progressBar.setVisibility(View.VISIBLE);
+        bookContent.setVisibility(View.GONE);
+
+        String text = book.getText();
+        bookContent.loadData(text, "text/html; charset=UTF-8", null);
+    }
+
 
     @Override
     public void onDestroyView() {
