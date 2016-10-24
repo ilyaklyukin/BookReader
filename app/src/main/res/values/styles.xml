@@ -14,4 +14,19 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="book_list_caption">
+        <item name="android:textSize">25sp</item>
+        <item name="android:textColor">@color/colorBookListCaption</item>
+    </style>
+
+    <style name="book_list_info">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/colorBookListInfo</item>
+    </style>
+
+    <style name="book_text">
+        <item name="android:textSize">25sp</item>
+        <item name="android:textColor">@color/colorBookText</item>
+    </style>
 </resources>
