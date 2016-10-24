@@ -23,11 +23,21 @@
             android:textSize="25sp" />
 
         <TextView
-            android:id="@+id/author"
+            android:id="@+id/genre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="left"
             android:paddingTop="15dp"
+            android:paddingLeft="25dp"
+            android:textSize="20sp"
+            android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+        <TextView
+            android:id="@+id/author"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:paddingTop="5dp"
             android:paddingLeft="25dp"
             android:textSize="20sp"
             android:textAppearance="?android:attr/textAppearanceSmall"/>

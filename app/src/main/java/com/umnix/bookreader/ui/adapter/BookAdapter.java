@@ -35,6 +35,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
         Book book = itemList.get(position);
 
         holder.description.setText(book.getDescription());
+        holder.genre.setText(book.getGenre() == null ? "-" : book.getGenre().getGenreName());
         holder.author.setText(book.getAuthor() == null ? "-" : book.getAuthor().getName());
 
         holder.view.setOnClickListener(v -> listener.onItemClick(book));
@@ -50,6 +51,9 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
 
         @BindView(R.id.book_description)
         protected TextView description;
+
+        @BindView(R.id.genre)
+        protected TextView genre;
 
         @BindView(R.id.author)
         protected TextView author;
