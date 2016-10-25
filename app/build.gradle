@@ -3,7 +3,7 @@ apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'me.tatarka.retrolambda'
 
 // database versioning
-def databaseVersion = 3
+def databaseVersion = 4
 
 android {
     compileSdkVersion 24

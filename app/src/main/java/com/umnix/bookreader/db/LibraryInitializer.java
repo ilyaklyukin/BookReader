@@ -3,11 +3,13 @@ package com.umnix.bookreader.db;
 
 import android.content.Context;
 
-import com.umnix.bookreader.BookReaderApplication;
 import com.umnix.bookreader.R;
 import com.umnix.bookreader.db.dao.AuthorDao;
+import com.umnix.bookreader.db.dao.AuthorDaoImpl;
 import com.umnix.bookreader.db.dao.BookDao;
+import com.umnix.bookreader.db.dao.BookDaoImpl;
 import com.umnix.bookreader.db.dao.GenreDao;
+import com.umnix.bookreader.db.dao.GenreDaoImpl;
 import com.umnix.bookreader.model.Author;
 import com.umnix.bookreader.model.Book;
 import com.umnix.bookreader.model.Genre;
@@ -17,27 +19,20 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.SQLException;
 
-import javax.inject.Inject;
-
 import timber.log.Timber;
 
 public class LibraryInitializer {
-    @Inject
-    protected DBContentProvider dbContentProvider;
-
-    @Inject
-    Context context;
 
     private AuthorDao authorDao;
     private GenreDao genreDao;
     private BookDao bookDao;
+    private Context context;
 
-    public LibraryInitializer() {
-        BookReaderApplication.getComponent().inject(this);
-
-        authorDao = dbContentProvider.getAuthorDao();
-        genreDao = dbContentProvider.getGenreDao();
-        bookDao = dbContentProvider.getBookDao();
+    public LibraryInitializer(Context context, ORMLiteHelper dbHelper) throws SQLException {
+        this.context = context;
+        this.authorDao = new AuthorDaoImpl(dbHelper.getClassDao(Author.class));
+        this.genreDao = new GenreDaoImpl(dbHelper.getClassDao(Genre.class));
+        this.bookDao = new BookDaoImpl(dbHelper.getClassDao(Book.class));
     }
 
     public void initLibrary() throws SQLException {

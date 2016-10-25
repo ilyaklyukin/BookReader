@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.umnix.bookreader.BookReaderApplication;
 import com.umnix.bookreader.db.DBContentProvider;
-import com.umnix.bookreader.db.LibraryInitializer;
 
 import javax.inject.Singleton;
 
@@ -35,11 +34,5 @@ public class ApplicationModule {
     @Singleton
     DBContentProvider provideDBContentProvider() {
         return new DBContentProvider();
-    }
-
-    @Provides
-    @Singleton
-    LibraryInitializer provideLibraryInitializer() {
-        return new LibraryInitializer();
     }
 }

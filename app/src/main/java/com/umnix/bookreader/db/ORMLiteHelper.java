@@ -17,6 +17,8 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import timber.log.Timber;
 
 public class ORMLiteHelper extends OrmLiteSqliteOpenHelper {
@@ -30,8 +32,14 @@ public class ORMLiteHelper extends OrmLiteSqliteOpenHelper {
 
     private Map<String, Object> daoCache = new HashMap<>();
 
+    private Context context;
+
+    @Inject
+    protected LibraryInitializer libraryInitializer;
+
     public ORMLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, BuildConfig.DATABASE_VERSION, R.raw.ormlite_config);
+        this.context = context;
     }
 
     @Override
@@ -54,6 +62,8 @@ public class ORMLiteHelper extends OrmLiteSqliteOpenHelper {
                 TableUtils.createTable(connectionSource, clazz);
             }
 
+            //fill data
+            new LibraryInitializer(context, this).initLibrary();
         } catch (SQLException e) {
             Timber.e(e, "Can't create database");
             throw new RuntimeException(e);

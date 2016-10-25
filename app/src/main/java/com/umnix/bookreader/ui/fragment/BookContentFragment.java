@@ -29,6 +29,7 @@ import timber.log.Timber;
 public class BookContentFragment extends Fragment {
 
     private static final String EXTRA_BOOK_ID = "extra.book_id";
+    private static final String STATE_SELECTED_BOOK_ID = "state.book_id";
 
     @Inject
     protected DBContentProvider dbContentProvider;
@@ -59,6 +60,9 @@ public class BookContentFragment extends Fragment {
         BookReaderApplication.getComponent().inject(this);
 
         long bookId = getArguments().getLong(EXTRA_BOOK_ID, -1);
+        if (savedInstanceState != null) {
+            bookId = savedInstanceState.getLong(STATE_SELECTED_BOOK_ID, bookId);
+        }
 
         try {
             book = dbContentProvider.getBookDao().getById(bookId);
@@ -121,5 +125,10 @@ public class BookContentFragment extends Fragment {
         unbinder.unbind();
 
         super.onDestroyView();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putLong(STATE_SELECTED_BOOK_ID, book.getId());
     }
 }
