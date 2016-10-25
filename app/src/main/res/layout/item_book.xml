@@ -7,7 +7,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="start" >
+        android:gravity="start">
 
         <TextView
             android:id="@+id/book_description"
@@ -20,8 +20,8 @@
             android:textAppearance="@style/book_list_caption" />
 
         <TextView
-            android:id="@+id/genre"
-            android:layout_width="match_parent"
+            android:id="@+id/author"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/book_description"
             android:paddingEnd="@dimen/book_item_side_padding"
@@ -31,14 +31,15 @@
             android:textAppearance="@style/book_list_info" />
 
         <TextView
-            android:id="@+id/author"
-            android:layout_width="match_parent"
+            android:id="@+id/genre"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/genre"
-            android:paddingEnd="@dimen/book_item_side_padding"
-            android:paddingLeft="@dimen/book_item_side_padding"
-            android:paddingStart="@dimen/book_item_side_padding"
-            android:paddingTop="@dimen/book_item_author_top_padding"
+            android:layout_below="@+id/book_description"
+            android:layout_marginLeft="@dimen/book_item_genre_side_margin"
+            android:layout_marginStart="@dimen/book_item_genre_side_margin"
+            android:layout_toEndOf="@+id/author"
+            android:layout_toRightOf="@+id/author"
+            android:paddingTop="@dimen/book_item_genre_top_padding"
             android:textAppearance="@style/book_list_info" />
     </RelativeLayout>
 </android.support.v7.widget.CardView>
