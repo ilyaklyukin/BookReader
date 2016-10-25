@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 
 import com.umnix.bookreader.BookReaderApplication;
 import com.umnix.bookreader.R;
+import com.umnix.bookreader.db.Codec;
 import com.umnix.bookreader.db.DBContentProvider;
 import com.umnix.bookreader.model.Book;
 
@@ -110,7 +111,7 @@ public class BookContentFragment extends Fragment {
         progressBar.setVisibility(View.VISIBLE);
         bookContent.setVisibility(View.GONE);
 
-        String text = book.getText();
+        String text = Codec.decode(book.getText(), getActivity().getString(R.string.security_key));
         bookContent.loadData(text, "text/html; charset=UTF-8", null);
     }
 

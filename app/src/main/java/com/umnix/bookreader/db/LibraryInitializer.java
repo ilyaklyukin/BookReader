@@ -4,6 +4,7 @@ package com.umnix.bookreader.db;
 import android.content.Context;
 
 import com.umnix.bookreader.BookReaderApplication;
+import com.umnix.bookreader.R;
 import com.umnix.bookreader.db.dao.AuthorDao;
 import com.umnix.bookreader.db.dao.BookDao;
 import com.umnix.bookreader.db.dao.GenreDao;
@@ -81,32 +82,32 @@ public class LibraryInitializer {
     private void fillBooks() throws SQLException {
         bookDao.deleteAll();
 
+        String securityKey = context.getString(R.string.security_key);
+
         Book book = new Book()
                 .description("Основатели (eng.)")
-                .text(getAssetContent("osnovateli.txt"))
+                .text(Codec.encode(getAssetContent("osnovateli.txt"), securityKey))
                 .author(authorDao.getByName("Айзек Азимов"))
                 .genre(genreDao.getByName("фантастика"));
         bookDao.save(book);
 
         book = new Book()
                 .description("Этим утром я решила перестать есть")
-                .text(getAssetContent("perestala_est.txt"))
+                .text(Codec.encode(getAssetContent("perestala_est.txt"), securityKey))
                 .author(authorDao.getByName("Жюстин"))
                 .genre(genreDao.getByName("биография"));
         bookDao.save(book);
 
         book = new Book()
                 .description("Жилец из верхней квартиры")
-                .text(getAssetContent("kvartira.txt"))
+                .text(Codec.encode(getAssetContent("kvartira.txt"), securityKey))
                 .author(authorDao.getByName("Рэй Бредбери"))
                 .genre(genreDao.getByName("фантастика"));
         bookDao.save(book);
     }
 
     private String getAssetContent(String fileName) {
-
         String result = "";
-
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(context.getAssets().open(fileName), "UTF-8"));
 
